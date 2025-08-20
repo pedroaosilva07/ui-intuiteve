@@ -2,7 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { Box, Button, TextField, Select, MenuItem, Typography, FormControl, Skeleton, Fab, Grid, Grow } from '@mui/material';
-import { useRouter } from 'next/navigation';
+import NomeCompleto from '@/components/etapa1/nomeCompleto';
+import Apelido from '@/components/etapa1/apelido';
+import Email from '@/components/etapa1/email';
+import DataNascimento from '@/components/etapa1/dataNascimento';
+import Genero from '@/components/etapa1/genero';
+import Idade from '@/components/etapa1/idade';
 
 export default function Cadastro() {
     const [etapa, setEtapa] = useState(1);
@@ -21,6 +26,7 @@ export default function Cadastro() {
     }, []);
 
     const handleNext = () => setEtapa((prev) => Math.min(prev + 1, 5));
+
     const handleBack = () => {
         if (etapa > 1) {
             setEtapa((prev) => prev - 1);
@@ -152,43 +158,36 @@ export default function Cadastro() {
 
                     {etapa === 1 && (
 
+                        // TODO: colocar textfild em aquivos separados
 
                         <Box sx={{ width: '100%', display: 'flex', flexWrap: 'wrap', gap: 2 }}>
 
                             <Grid container spacing={2}>
 
                                 <Grid size={{ xs: 12, md: 6 }}>
-                                    <TextField fullWidth label="Nome completo" variant="outlined" sx={inputSx} InputLabelProps={{ shrink: true }} />
+                                    <NomeCompleto sx={inputSx} />
                                 </Grid>
 
                                 <Grid size={{ xs: 12, md: 6 }}>
-                                    <TextField fullWidth label="Apelido" variant="outlined" sx={inputSx} InputLabelProps={{ shrink: true }} />
+                                    <Apelido sx={inputSx} />
                                 </Grid>
 
                                 <Grid size={{ xs: 12, md: 6 }}>
-                                    <TextField fullWidth label="Email" type="email" variant="outlined" sx={inputSx} InputLabelProps={{ shrink: true }} />
+                                    <Email sx={inputSx} />
                                 </Grid>
 
                                 <Grid size={{ xs: 12, md: 6 }}>
-                                    <TextField onChange={handleDataChange} fullWidth label="Data de nascimento" type="date" variant="outlined" sx={inputSx} InputLabelProps={{ shrink: true }} />
+                                    <DataNascimento sx={inputSx} onChange={handleDataChange} />
                                 </Grid>
 
-                                <Grid size={{ xs: 12}}>
+                                <Grid size={{ xs: 12 }}>
                                     {dataNascimento === "" ? (
 
                                         <Grid container spacing={2}>
 
                                             <Grid size={12}>
                                                 <FormControl fullWidth variant="outlined" sx={{ ...inputSx }}>
-
-                                                    <Select defaultValue="" displayEmpty sx={{ color: '#F5F5F5', backgroundColor: '#1e1e1e', '& .MuiOutlinedInput-notchedOutline': { borderColor: '#F5F5F5' } }}>
-                                                        <MenuItem value="">Gênero</MenuItem>
-                                                        <MenuItem value="masculino">Masculino</MenuItem>
-                                                        <MenuItem value="feminino">Feminino</MenuItem>
-                                                        <MenuItem value="outro">Outro</MenuItem>
-                                                        <MenuItem value="nao_dizer">Prefiro não dizer</MenuItem>
-                                                    </Select>
-
+                                                    <Genero />
                                                 </FormControl>
                                             </Grid>
 
@@ -198,31 +197,22 @@ export default function Cadastro() {
 
                                         <Grid container spacing={2}>
 
-                                            <Grid size={6}>
-                                                <TextField fullWidth label="Idade" type="idade" variant="outlined" sx={inputSx} InputLabelProps={{ shrink: true }} />
+                                            <Grid size={{ xs: 12, md: 6 }}>
+                                                <Idade sx={inputSx} />
                                             </Grid>
 
-                                            <Grid size={6}>
+                                            <Grid size={{ xs: 12, md: 6 }}>
                                                 <FormControl fullWidth variant="outlined" sx={{ ...inputSx }}>
-
-                                                    <Select defaultValue="" displayEmpty sx={{ color: '#F5F5F5', backgroundColor: '#1e1e1e', '& .MuiOutlinedInput-notchedOutline': { borderColor: '#F5F5F5' } }}>
-                                                        <MenuItem value="">Gênero</MenuItem>
-                                                        <MenuItem value="masculino">Masculino</MenuItem>
-                                                        <MenuItem value="feminino">Feminino</MenuItem>
-                                                        <MenuItem value="outro">Outro</MenuItem>
-                                                        <MenuItem value="nao_dizer">Prefiro não dizer</MenuItem>
-                                                    </Select>
-
+                                                   <Genero />
                                                 </FormControl>
                                             </Grid>
 
 
                                         </Grid>
 
-
                                     )}
                                 </Grid>
-                                
+
                             </Grid>
 
 
