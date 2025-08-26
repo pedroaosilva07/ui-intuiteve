@@ -1,18 +1,29 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Box, Button, TextField, Select, MenuItem, Typography, FormControl, Skeleton, Fab, Grid, Grow } from '@mui/material';
+import { Box, Button, TextField, Select, MenuItem, Typography, FormControl, Skeleton, Fab, Grid, Grow, Stack, Alert } from '@mui/material';
 import NomeCompleto from '@/components/etapa1/nomeCompleto';
-import Apelido from '@/components/etapa1/apelido';
 import Email from '@/components/etapa1/email';
 import DataNascimento from '@/components/etapa1/dataNascimento';
 import Genero from '@/components/etapa1/genero';
 import Idade from '@/components/etapa1/idade';
+import Nick from '@/components/etapa1/nick';
 
 export default function Cadastro() {
     const [etapa, setEtapa] = useState(1);
     const [loading, setLoading] = useState(true);
     const [dataNascimento, setDataNascimento] = useState("");
+
+    const [alertMenssage, setAlertMenssage] = useState("");
+    const [showAlert, setShowAlert] = useState(false);
+
+    const handleCadastrarNome = (nome: string) => {
+        setAlertMenssage(`Nome "${nome}" cadastrado com sucesso`);
+        setShowAlert(true)
+
+        setTimeout(() => setShowAlert(false), 3000)
+    }
+
 
     const handleDataChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setDataNascimento(e.target.value);
@@ -60,6 +71,13 @@ export default function Cadastro() {
                 alignItems: 'center'
             }}
         >
+            {showAlert && (
+                <Box sx={{ position: 'absolute', top: 16, width: '100%', display: 'flex', justifyContent: 'center', zIndex: 999 }}>
+                    <Alert variant='filled' severity='success' sx={{ width: 'auto', maxWidth: 600 }}>
+                        {alertMenssage}
+                    </Alert>
+                </Box>
+            )}
             {loading ? (
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, maxWidth: 600, width: '100%' }}>
 
@@ -165,11 +183,11 @@ export default function Cadastro() {
                             <Grid container spacing={2}>
 
                                 <Grid size={{ xs: 12, md: 6 }}>
-                                    <NomeCompleto sx={inputSx} />
+                                    <NomeCompleto sx={inputSx} onCadastrar={handleCadastrarNome} />
                                 </Grid>
 
                                 <Grid size={{ xs: 12, md: 6 }}>
-                                    <Apelido sx={inputSx} />
+                                    <Nick sx={inputSx} />
                                 </Grid>
 
                                 <Grid size={{ xs: 12, md: 6 }}>
@@ -203,7 +221,7 @@ export default function Cadastro() {
 
                                             <Grid size={{ xs: 12, md: 6 }}>
                                                 <FormControl fullWidth variant="outlined" sx={{ ...inputSx }}>
-                                                   <Genero />
+                                                    <Genero />
                                                 </FormControl>
                                             </Grid>
 

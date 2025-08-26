@@ -17,6 +17,7 @@ export default function Genero({ sx }: GeneroProps) {
                 <MenuItem value="feminino">Feminino</MenuItem>
                 <MenuItem value="outro">Outro</MenuItem>
                 <MenuItem value="nao_dizer">Prefiro não dizer</MenuItem>
+                <MenuItem value="elu">Elu, delu</MenuItem>
             </Select>
         </>
 
